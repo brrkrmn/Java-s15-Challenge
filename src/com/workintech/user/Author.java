@@ -15,10 +15,14 @@ public class Author extends Person {
         books.put(book.getId(), book);
     }
 
-    public void showBook() {
-        System.out.println(getName() + "'s books: ");
-        for (Map.Entry entry: books.entrySet()){
-            System.out.println(entry.getValue());
+    public void showBooks() {
+        if (books.isEmpty()) {
+            System.out.println(getName() + " doesn't have any books.");
+        } else {
+            System.out.println(getName() + "'s books: ");
+            for (Map.Entry entry : books.entrySet()) {
+                System.out.println(entry.getValue());
+            }
         }
     }
 
