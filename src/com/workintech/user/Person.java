@@ -4,17 +4,17 @@ import java.util.Objects;
 import java.util.UUID;
 
 public abstract class Person {
-    private final long id;
+    private final String id;
     private String name;
 
     public abstract void whoYouAre();
 
     public Person(String name) {
-        this.id = Long.parseLong(UUID.randomUUID().toString());
-        this.name = name;
+        this.id = UUID.randomUUID().toString();
+        this.setName(name);
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -36,7 +36,7 @@ public abstract class Person {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Person person = (Person) obj;
-        return person.id == id;
+        return person.id.equals(id);
     }
 
     @Override

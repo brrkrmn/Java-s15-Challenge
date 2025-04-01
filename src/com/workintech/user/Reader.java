@@ -1,6 +1,6 @@
 package com.workintech.user;
 
-import com.workintech.library.Book;
+import com.workintech.book.Book;
 
 import java.util.Map;
 

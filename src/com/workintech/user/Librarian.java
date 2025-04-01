@@ -5,7 +5,31 @@ public class Librarian extends Person {
 
     public Librarian(String name, String password) {
         super(name);
-        this.password = password;
+        this.setPassword(password);
+    }
+
+    public void searchBook() {
+
+    }
+
+    public void verifyMember() {
+
+    }
+
+    public void issueBook() {
+
+    }
+
+    public void calculateFine() {
+
+    }
+
+    public void createBill() {
+
+    }
+
+    public void returnBook() {
+
     }
 
     @Override
