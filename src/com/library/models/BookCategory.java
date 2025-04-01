@@ -1,13 +1,13 @@
-package com.workintech.book;
+package com.library.models;
 
-public enum Category {
+public enum BookCategory {
     JOURNAL("Journal"),
     STUDY_BOOK("Study Book"),
     MAGAZINE("Magazine");
 
     private String category;
 
-    Category(String category) {
+    BookCategory(String category) {
         this.category = category;
     }
 
