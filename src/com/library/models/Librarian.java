@@ -1,4 +1,4 @@
-package com.workintech.user;
+package com.library.models;
 
 public class Librarian extends Person {
     private String password;
@@ -8,28 +8,12 @@ public class Librarian extends Person {
         this.setPassword(password);
     }
 
-    public void searchBook() {
-
+    public String getPassword() {
+        return password;
     }
 
-    public void verifyMember() {
-
-    }
-
-    public void issueBook() {
-
-    }
-
-    public void calculateFine() {
-
-    }
-
-    public void createBill() {
-
-    }
-
-    public void returnBook() {
-
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -40,13 +24,5 @@ public class Librarian extends Person {
     @Override
     public String toString() {
         return "Librarian: " + getName();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
