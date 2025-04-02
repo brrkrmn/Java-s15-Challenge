@@ -1,5 +1,6 @@
 package com.library.models;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,18 +11,18 @@ public class Book {
     private final int price = 1;
     private BookStatus status;
     private int edition;
-    private String dateOfPurchase;
+    private LocalDate dateOfPurchase;
     private BookCategory category;
     private Reader reader;
     private Reader owner;
 
     public Book(Author author, String title, int edition, BookCategory category) {
         this.id = UUID.randomUUID().toString();
-        this.status = BookStatus.AVAILABLE;
-        this.author = author;
-        this.title = title;
-        this.edition = edition;
-        this.category = category;
+        this.setStatus(BookStatus.AVAILABLE);
+        this.setAuthor(author);
+        this.setTitle(title);
+        this.setEdition(edition);
+        this.setCategory(category);
     }
 
     public String getId() {
@@ -48,7 +49,7 @@ public class Book {
         return edition;
     }
 
-    public String getDateOfPurchase() {
+    public LocalDate getDateOfPurchase() {
         return dateOfPurchase;
     }
 
@@ -76,7 +77,7 @@ public class Book {
         this.status = status;
     }
 
-    public void setDateOfPurchase(String dateOfPurchase) {
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 

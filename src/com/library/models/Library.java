@@ -7,7 +7,7 @@ public class Library {
     private Map<Long, Reader> readers;
 
     public Library(Map<Long, Book> books) {
-        this.books = books;
+        this.setBooks(books);
     }
 
     public Map<Long, Book> getBooks() {
