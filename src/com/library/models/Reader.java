@@ -3,17 +3,17 @@ package com.library.models;
 import java.util.Map;
 
 public class Reader extends Person {
-    private Map<Long, Book> books;
+    private Map<String, Book> books;
 
     public Reader(String name) {
         super(name);
     }
 
-    public Map<Long, Book> getBooks() {
+    public Map<String, Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Map<Long, Book> books) {
+    public void setBooks(Map<String, Book> books) {
         this.books = books;
     }
 
