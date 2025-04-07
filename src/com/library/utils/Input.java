@@ -22,6 +22,16 @@ public class Input {
         }
     }
 
+    public int readIntRange(int min, int max) {
+        while (true) {
+            int value = readInt("");
+            if (value >= min && value <= max) {
+                return value;
+            }
+            System.out.printf("Please enter a number between %d and %d.%n", min, max);
+        }
+    }
+
     public int readIntRange(String prompt, int min, int max) {
         while (true) {
             int value = readInt(prompt);

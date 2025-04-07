@@ -16,7 +16,7 @@ public class App {
         System.out.println("2. Author");
         System.out.println("3. Librarian");
 
-        int selection = input.readIntRange("", 1, 3);
+        int selection = input.readIntRange(1, 3);
         System.out.println("Your selection => " + selection);
     }
 }
