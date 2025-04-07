@@ -10,6 +10,10 @@ public class Input {
         return scanner.nextLine();
     }
 
+    public String readLine() {
+        return scanner.nextLine();
+    }
+
     public int readInt(String prompt) {
         while (true) {
             System.out.println(prompt);
