@@ -21,7 +21,7 @@ public class Input {
             try {
                 return Integer.parseInt(userInput);
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a number.");
+                System.out.println("\nPlease enter a number.");
             }
         }
     }
@@ -32,7 +32,7 @@ public class Input {
             if (value >= min && value <= max) {
                 return value;
             }
-            System.out.printf("Please enter a number between %d and %d.%n", min, max);
+            System.out.printf("\nPlease enter a number between %d and %d.%n", min, max);
         }
     }
 
@@ -42,7 +42,7 @@ public class Input {
             if (value >= min && value <= max) {
                 return value;
             }
-            System.out.printf("Please enter a number between %d and %d.%n", min, max);
+            System.out.printf("\nPlease enter a number between %d and %d.%n", min, max);
         }
     }
 }
