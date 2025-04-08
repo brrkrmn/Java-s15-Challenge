@@ -1,14 +1,14 @@
 package com.library.console;
 
 import com.library.utils.Input;
+import com.library.utils.UIHelper;
 
-public class App {
+public class App implements UIHelper {
     private final Input input = new Input();
     private final AuthorFlow authorFlow = new AuthorFlow();
 
     public void run() {
-        System.out.println("\nWelcome, this is the library management system.\n");
-
+        printPrompt("Welcome, this is the library management system.");
         Role role = getUserRole();
         switch (role) {
 //            case READER: startReaderFlow();
@@ -18,11 +18,8 @@ public class App {
     }
 
     public Role getUserRole() {
-        System.out.println("Who are you?");
-        System.out.println("1. Reader");
-        System.out.println("2. Author");
-        System.out.println("3. Librarian");
-
+        printPrompt("Who are you?");
+        printOptions(false, "Reader", "Author", "Librarian");
         return Role.fromInt(input.readIntRange(1, 3));
     }
 }
