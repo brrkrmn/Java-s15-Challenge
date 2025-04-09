@@ -4,21 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Library {
-    private Map<Long, Book> books;
-    private Map<Long, Reader> readers;
-    private Map<Long, Author> authors;
+    private Map<String, Book> books;
+    private Map<String, Reader> readers;
+    private Map<String, Author> authors;
     private Librarian librarian;
 
     private static Library instance;
 
-    private Library(Map<Long, Author> authors, Map<Long, Book> books, Librarian librarian) {
+    private Library(Map<String, Author> authors, Map<String, Book> books, Librarian librarian) {
         this.setAuthors(authors);
         this.setBooks(books);
         this.setLibrarian(librarian);
         this.setReaders(new HashMap<>());
     }
 
-    public static void initialize(Map<Long, Author> authors, Map<Long, Book> books, Librarian librarian) {
+    public static void initialize(Map<String, Author> authors, Map<String, Book> books, Librarian librarian) {
         if (instance != null) {
             throw new IllegalStateException("Library is already initialized.");
         }
@@ -32,15 +32,15 @@ public class Library {
         return instance;
     }
 
-    public Map<Long, Book> getBooks() {
+    public Map<String, Book> getBooks() {
         return books;
     }
 
-    public Map<Long, Reader> getReaders() {
+    public Map<String, Reader> getReaders() {
         return readers;
     }
 
-    public Map<Long, Author> getAuthors() {
+    public Map<String, Author> getAuthors() {
         return authors;
     }
 
@@ -48,15 +48,15 @@ public class Library {
         return librarian;
     }
 
-    public void setBooks(Map<Long, Book> books) {
+    public void setBooks(Map<String, Book> books) {
         this.books = books;
     }
 
-    public void setReaders(Map<Long, Reader> readers) {
+    public void setReaders(Map<String, Reader> readers) {
         this.readers = readers;
     }
 
-    public void setAuthors(Map<Long, Author> authors) {
+    public void setAuthors(Map<String, Author> authors) {
         this.authors = authors;
     }
 
