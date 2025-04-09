@@ -1,19 +1,29 @@
 package com.library.console;
 
+import com.library.console.flows.AuthorFlow;
+import com.library.console.flows.LibrarianFlow;
+import com.library.console.flows.ReaderFlow;
+import com.library.service.LibraryService;
 import com.library.utils.Input;
 import com.library.utils.UIHelper;
 
 public class App implements UIHelper {
     private final Input input = new Input();
-    private final AuthorFlow authorFlow = new AuthorFlow();
+    private final LibraryService libraryService = new LibraryService();
+    private final AuthorFlow authorFlow = new AuthorFlow(libraryService);
+    private final ReaderFlow readerFlow = new ReaderFlow();
+    private final LibrarianFlow librarianFlow = new LibrarianFlow();
 
     public void run() {
         printPrompt("Welcome, this is the library management system.");
-        Role role = getUserRole();
-        switch (role) {
-//            case READER: startReaderFlow();
-            case AUTHOR: authorFlow.run();
-//            case LIBRARIAN: startLibrarianFlow();
+
+        while (true) {
+            Role role = getUserRole();
+            switch (role) {
+                case READER: readerFlow.run();
+                case AUTHOR: authorFlow.run();
+                case LIBRARIAN: librarianFlow.run();
+            }
         }
     }
 

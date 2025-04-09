@@ -1,5 +1,6 @@
 package com.library.models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Author extends Person {
@@ -7,6 +8,11 @@ public class Author extends Person {
 
     public Author(String name) {
         super(name);
+        setBooks(new HashMap<>());
+    }
+
+    public void addBook(Book book) {
+        books.put(book.getId(), book);
     }
 
     public Map<String, Book> getBooks() {
@@ -24,6 +30,15 @@ public class Author extends Person {
 
     @Override
     public String toString() {
-        return "Author: " + getName();
+        return "Author {" +
+                "\n   id = " + getId() +
+                "\n   name = " + getName() +
+                "\n   books = (" + getBooks().size() + ") " +
+                    getBooks()
+                    .values()
+                    .stream()
+                    .map(Book::getTitle)
+                    .collect(java.util.stream.Collectors.joining(", ")) +
+                "\n}\n";
     }
 }
