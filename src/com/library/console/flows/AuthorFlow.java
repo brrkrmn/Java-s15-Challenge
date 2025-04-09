@@ -75,15 +75,41 @@ public class AuthorFlow extends Flow {
     }
 
     public void deleteBook() {
-        String id = input.readLine("Please enter the id of the book you want to delete.");
-        if (libraryService.getLibrary().getBooks().get(id) == null) {
-            printPrompt("Sorry, we could not find a book with this id.");
-        } else if (libraryService.getLibrary().getBooks().get(id).getAuthor() != author) {
-            printPrompt("Sorry, you cannot delete another author's book.");
-        } else {
+        if (author.getBooks().isEmpty()) {
+            printPrompt("You don't have any books to delete.");
+            return;
+        }
+
+        while (true) {
+            printPrompt("Please enter the id of the book you want to delete.");
+            printGoBackPrompt();
+            String id = input.readLine();
+            
+            if (id.equals("00")) {
+                break;
+            }
+
+            if (isNullOrEmpty(id)) {
+                printPrompt("You must provide an id.");
+                continue;
+            }
+
+            Book book = libraryService.getLibrary().getBooks().get(id);
+
+            if (book == null) {
+                printPrompt("Sorry, no book found with this ID.");
+                continue;
+            }
+
+            if (!book.getAuthor().equals(author)) {
+                printPrompt("Sorry, you cannot delete another author's book.");
+                continue;
+            }
+
             libraryService.getLibrary().getBooks().remove(id);
             author.getBooks().remove(id);
             printPrompt("Book deleted successfully");
+            return;
         }
     }
 }

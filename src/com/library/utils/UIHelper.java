@@ -29,4 +29,10 @@ public interface UIHelper {
         printDivider();
         if (includeExit) System.out.println("0. Exit");
     }
+
+    default void printGoBackPrompt() {
+        System.out.println(" --------------------- ");
+        System.out.println("| Press 00 to go back |");
+        System.out.println(" --------------------- ");
+    }
 }
