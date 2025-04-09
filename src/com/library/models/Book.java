@@ -1,5 +1,7 @@
 package com.library.models;
 
+import com.library.service.AuthorService;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -10,19 +12,20 @@ public class Book {
     private String title;
     private final int price = 1;
     private BookStatus status;
-    private int edition;
+    private double year;
     private LocalDate dateOfPurchase;
     private BookCategory category;
     private Reader reader;
     private Reader owner;
 
-    public Book(Author author, String title, int edition, BookCategory category) {
+    public Book(Author author, String title, double year, BookCategory category) {
         this.id = UUID.randomUUID().toString();
         this.setStatus(BookStatus.AVAILABLE);
         this.setAuthor(author);
         this.setTitle(title);
-        this.setEdition(edition);
+        this.setYear(year);
         this.setCategory(category);
+        author.addBook(this);
     }
 
     public String getId() {
@@ -45,8 +48,8 @@ public class Book {
         return status;
     }
 
-    public int getEdition() {
-        return edition;
+    public double getYear() {
+        return year;
     }
 
     public LocalDate getDateOfPurchase() {
@@ -81,8 +84,8 @@ public class Book {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public void setEdition(int edition) {
-        this.edition = edition;
+    public void setYear(double year) {
+        this.year = year;
     }
 
     public void setCategory(BookCategory category) {
@@ -99,18 +102,18 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id='" + id + '\'' +
-                ", author=" + author +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", status=" + status +
-                ", edition=" + edition +
-                ", dateOfPurchase='" + dateOfPurchase + '\'' +
-                ", category=" + category +
-                ", reader=" + reader +
-                ", owner=" + owner +
-                '}';
+        return "Book\n {" +
+                "\n  id = " + id +
+                "\n  title = " + title +
+                "\n  price = " + price +
+                "\n  status = " + status +
+                "\n  year = " + year +
+                "\n  dateOfPurchase = " + dateOfPurchase +
+                "\n  category = " + category +
+                "\n  reader = " + reader +
+                "\n  owner = " + owner +
+                "\n  author = " + author.getName() +
+                "\n }\n";
     }
 
     @Override

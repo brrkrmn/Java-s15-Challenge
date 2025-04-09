@@ -28,7 +28,10 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Person: " + name;
+        return "Person {" +
+                "\n id = " + id +
+                "\n name = " + name +
+                "\n}\n";
     }
 
     @Override

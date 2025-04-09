@@ -13,7 +13,13 @@ public class Librarian extends Person {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password.length() < 3) {
+            System.out.println("Password should have minimum 3 characters.");
+        } else if (password.length() > 10) {
+            System.out.println("Password should have maximum 10 characters.");
+        } else {
+            this.password = password;
+        }
     }
 
     @Override
@@ -23,6 +29,10 @@ public class Librarian extends Person {
 
     @Override
     public String toString() {
-        return "Librarian: " + getName();
+        return "Librarian {" +
+                "\n id = " + getId() +
+                "\n name = " + getName() +
+                "\n password = " + password +
+                "\n}\n";
     }
 }
