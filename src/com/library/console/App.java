@@ -19,9 +19,15 @@ public class App implements UIHelper {
             printPrompt("Welcome, this is the library management system.");
             Role role = getUserRole();
             switch (role) {
-                case READER: readerFlow.run();
-                case AUTHOR: authorFlow.run();
-                case LIBRARIAN: librarianFlow.run();
+                case READER:
+                    readerFlow.run();
+                    break;
+                case AUTHOR:
+                    authorFlow.run();
+                    break;
+                case LIBRARIAN:
+                    librarianFlow.run();
+                    break;
             }
         }
     }
