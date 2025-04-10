@@ -9,6 +9,8 @@ import com.library.service.LibrarianService;
 import com.library.service.LibraryService;
 import com.library.utils.Input;
 
+import java.util.List;
+
 public class LibrarianFlow extends Flow {
     private LibraryService libraryService;
     private LibrarianService librarianService;
@@ -224,18 +226,24 @@ public class LibrarianFlow extends Flow {
 
     public void searchBooks() {
         printPrompt("Search books with: ");
-        printOptions(true, "title", "author", "category");
-        int option = input.readIntRange(0, 3);
+        printOptions(true, "id", "title", "author", "category");
+        int option = input.readIntRange(0, 4);
 
         switch (option) {
             case 0: return;
             case 1:
-                System.out.println(libraryService.searchBooksWithTitle(input.readLine("Search for a title")));
+                String id = input.readLine("Search with book id: ");
+                Book book = libraryService.getLibrary().getBooks().get(id);
+                System.out.println(book == null ? "There is no book found." : book);
                 break;
             case 2:
+                List<Book> booksFound = libraryService.searchBooksWithTitle(input.readLine("Search for a title"));
+                System.out.println(booksFound.isEmpty() ? "No books found" : booksFound);
+                break;
+            case 3:
                 Author author;
                 while (true) {
-                    printPrompt("Search with author name");
+                    printPrompt("Search with author name: ");
                     printGoBackPrompt();
                     String authorName = input.readLine();
 
@@ -253,8 +261,8 @@ public class LibrarianFlow extends Flow {
                     break;
                 }
                 break;
-            case 3:
-                printPrompt("Search category");
+            case 4:
+                printPrompt("Search category: ");
                 printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
                 System.out.println(libraryService.listCategoryBooks(BookCategory.fromInt(input.readIntRange(1, 4))));
                 break;
