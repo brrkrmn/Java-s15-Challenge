@@ -12,12 +12,11 @@ public class App implements UIHelper {
     private final LibraryService libraryService = new LibraryService();
     private final AuthorFlow authorFlow = new AuthorFlow(libraryService);
     private final ReaderFlow readerFlow = new ReaderFlow();
-    private final LibrarianFlow librarianFlow = new LibrarianFlow();
+    private final LibrarianFlow librarianFlow = new LibrarianFlow(libraryService);
 
     public void run() {
-        printPrompt("Welcome, this is the library management system.");
-
         while (true) {
+            printPrompt("Welcome, this is the library management system.");
             Role role = getUserRole();
             switch (role) {
                 case READER: readerFlow.run();
