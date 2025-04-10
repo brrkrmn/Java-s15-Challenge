@@ -5,8 +5,12 @@ import com.library.models.Librarian;
 public class LibrarianService {
     private Librarian librarian;
 
-    public LibrarianService(Librarian librarian) {
-        this.librarian = librarian;
+    public LibrarianService() {
+        this.librarian = Librarian.getInstance();
+    }
+
+    public Librarian getLibrarian() {
+        return librarian;
     }
 
     public void searchBook() {

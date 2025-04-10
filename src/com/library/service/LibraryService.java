@@ -13,7 +13,6 @@ public class LibraryService {
         Map<String, Author> defaultAuthors = new HashMap<>();
         Map<String, Author> authorsByName = new HashMap<>();
         Map<String, Book> defaultBooks = new HashMap<>();
-        Librarian librarian = new Librarian("Admin", "secret");
 
         List<Author> authorData = List.of(
                 new Author("Patrick Rothfuss"),
@@ -66,7 +65,8 @@ public class LibraryService {
             defaultBooks.put(book.getId(), book);
         }
 
-        Library.initialize(defaultAuthors, defaultBooks, librarian);
+        Librarian.initialize("Admin", "secret");
+        Library.initialize(defaultAuthors, defaultBooks, Librarian.getInstance());
         this.library = Library.getInstance();
     }
 

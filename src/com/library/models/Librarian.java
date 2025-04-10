@@ -2,10 +2,25 @@ package com.library.models;
 
 public class Librarian extends Person {
     private String password;
+    private static Librarian instance;
 
-    public Librarian(String name, String password) {
+    private Librarian(String name, String password) {
         super(name);
         this.setPassword(password);
+    }
+
+    public static void initialize(String name, String password) {
+        if (instance != null) {
+            throw new IllegalStateException("Librarian is already initialized.");
+        }
+        instance = new Librarian(name, password);
+    }
+
+    public static Librarian getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("Librarian has not been initialized yet.");
+        }
+        return instance;
     }
 
     public String getPassword() {
