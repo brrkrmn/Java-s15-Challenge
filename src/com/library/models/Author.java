@@ -11,10 +11,6 @@ public class Author extends Person {
         setBooks(new HashMap<>());
     }
 
-    public void addBook(Book book) {
-        books.put(book.getId(), book);
-    }
-
     public Map<String, Book> getBooks() {
         return books;
     }

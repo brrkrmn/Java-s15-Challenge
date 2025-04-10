@@ -25,7 +25,7 @@ public class Book {
         this.setTitle(title);
         this.setYear(year);
         this.setCategory(category);
-        author.addBook(this);
+        author.getBooks().put(id, this);
     }
 
     public String getId() {

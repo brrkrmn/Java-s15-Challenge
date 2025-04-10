@@ -11,7 +11,7 @@ public class App implements UIHelper {
     private final Input input = new Input();
     private final LibraryService libraryService = new LibraryService();
     private final AuthorFlow authorFlow = new AuthorFlow(libraryService);
-    private final ReaderFlow readerFlow = new ReaderFlow();
+    private final ReaderFlow readerFlow = new ReaderFlow(libraryService);
     private final LibrarianFlow librarianFlow = new LibrarianFlow(libraryService);
 
     public void run() {

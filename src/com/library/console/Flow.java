@@ -8,6 +8,7 @@ public abstract class Flow implements DataHelper, UIHelper {
     private final Input input = new Input();
 
     public abstract void run();
+    public abstract int showActions();
 
     public String askName(String prompt) {
         printPrompt(prompt);
