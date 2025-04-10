@@ -4,6 +4,7 @@ import com.library.console.Flow;
 import com.library.models.Author;
 import com.library.models.Book;
 import com.library.models.BookCategory;
+import com.library.service.BookService;
 import com.library.service.LibrarianService;
 import com.library.service.LibraryService;
 import com.library.utils.Input;
@@ -32,7 +33,9 @@ public class LibrarianFlow extends Flow {
                 case 1:
                     addBook();
                     break;
-                case 2: ;
+                case 2:
+                    editBook();
+                    break;
                 case 3:
                     deleteBook();
                     break;
@@ -68,7 +71,7 @@ public class LibrarianFlow extends Flow {
         printPrompt("Librarian, what do you want to do?");
         printOptions(true,
                 "Add new book",
-                "Update a book",
+                "Edit a book",
                 "Delete a book",
                 "Show books",
                 "Show authors",
@@ -112,6 +115,72 @@ public class LibrarianFlow extends Flow {
         BookCategory category = BookCategory.fromInt(input.readIntRange(1, 4));
 
         libraryService.newBook(new Book(author, title, year, category));
+    }
+
+    public void editBook() {
+        Book book;
+        BookService bookService;
+
+        while (true) {
+            printPrompt("Enter the id of the book you want to edit");
+            printGoBackPrompt();
+            String id = input.readLine();
+
+            if (id.equals("00")) {
+                break;
+            }
+
+            if (isNullOrEmpty(id)) {
+                printPrompt("You must provide an id");
+            }
+
+            book = libraryService.getLibrary().getBooks().get(id);
+
+            if (book == null) {
+                printPrompt("There is no book with this id");
+                continue;
+            }
+            printPrompt("Here's the book you're looking for: " + book);
+            bookService = new BookService(book);
+
+            while (true) {
+                printPrompt("Which field do you want to change?");
+                printOptions(true, "Title", "Author", "Year", "Price", "Category");
+                int option = input.readIntRange(0, 5);
+
+                switch (option) {
+                    case 0: return;
+                    case 1:
+                        bookService.changeTitle(input.readLine("What is the new title?"));
+                        break;
+                    case 2:
+                        Author author;
+                        while (true) {
+                            String authorId = input.readLine("What is the new author's id?");
+                            author = libraryService.getLibrary().getAuthors().get(authorId);
+
+                            if (author == null) {
+                                printPrompt("There is no author with this id.");
+                                continue;
+                            }
+                            bookService.changeAuthor(author);
+                        }
+                    case 3:
+                        bookService.changeYear(input.readInt("What is the new year?"));
+                        break;
+                    case 4:
+                        while (true) {
+                            int price = input.readInt("What is the new price?");
+                            if (bookService.changePrice(price)) break;
+                        }
+                        break;
+                    case 5:
+                        printPrompt("What is the new category");
+                        printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
+                        bookService.changeCategory(BookCategory.fromInt(input.readIntRange(1, 4)));
+                }
+            }
+        }
     }
 
     public void deleteBook() {

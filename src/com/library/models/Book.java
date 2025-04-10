@@ -10,7 +10,7 @@ public class Book {
     private final String id;
     private Author author;
     private String title;
-    private final int price = 1;
+    private int price = 1;
     private BookStatus status;
     private int year;
     private LocalDate dateOfPurchase;
@@ -98,6 +98,10 @@ public class Book {
 
     public void setReader(Reader reader) {
         this.reader = reader;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

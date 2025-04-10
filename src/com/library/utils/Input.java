@@ -2,16 +2,23 @@ package com.library.utils;
 
 import java.util.Scanner;
 
-public class Input {
+public class Input implements DataHelper {
     private final Scanner scanner = new Scanner(System.in);
 
     public String readLine(String prompt) {
         System.out.println(prompt);
-        return scanner.nextLine();
+        return readLine();
     }
 
     public String readLine() {
-        return scanner.nextLine();
+        while (true) {
+            String userInput = scanner.nextLine();
+            if (isNullOrEmpty(userInput)) {
+                System.out.println("This field cannot be empty");
+                continue;
+            }
+            return userInput;
+        }
     }
 
     public int readInt(String prompt) {
