@@ -1,7 +1,9 @@
 package com.library.console.flows;
 
 import com.library.console.Flow;
+import com.library.models.Author;
 import com.library.models.Book;
+import com.library.models.BookCategory;
 import com.library.service.LibrarianService;
 import com.library.service.LibraryService;
 import com.library.utils.Input;
@@ -27,9 +29,13 @@ public class LibrarianFlow extends Flow {
             int actionNo = showActions();
             switch (actionNo) {
                 case 0: return;
-                case 1: ;
+                case 1:
+                    addBook();
+                    break;
                 case 2: ;
-                case 3: deleteBook();
+                case 3:
+                    deleteBook();
+                    break;
                 case 4:
                     printPrompt("----------Books----------\n" + libraryService.getLibrary().getBooks().values());
                     break;
@@ -71,9 +77,52 @@ public class LibrarianFlow extends Flow {
         return input.readIntRange(0,6);
     }
 
+    public void addBook() {
+        String title;
+        Author author;
+
+        while (true) {
+            title = input.readLine("What is the title of the book?");
+            if (isNullOrEmpty(title)) {
+                printPrompt("Title cannot be empty.");
+                continue;
+            }
+            break;
+        }
+
+        while (true) {
+            String authorId = input.readLine("Who is the id of the author?");
+            if (isNullOrEmpty(authorId)) {
+                printPrompt("Author id is required.");
+                continue;
+            }
+
+            author = libraryService.getLibrary().getAuthors().get(authorId);
+
+            if (author == null) {
+                printPrompt("There is no author with this id.");
+            }
+            break;
+        }
+
+        int year = input.readInt("What is the year of the book?");
+
+        printPrompt("Select the category of the book");
+        printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
+        BookCategory category = BookCategory.fromInt(input.readIntRange(1, 4));
+
+        libraryService.newBook(new Book(author, title, year, category));
+    }
+
     public void deleteBook() {
         while (true) {
-            String id = input.readLine("Enter the id of the book you want to delete.");
+            printPrompt("Enter the id of the book you want to delete.");
+            printGoBackPrompt();
+            String id = input.readLine();
+
+            if (id.equals("00")) {
+                break;
+            }
 
             if (isNullOrEmpty(id)) {
                 printPrompt("You must provide an id");
