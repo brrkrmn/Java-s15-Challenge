@@ -74,12 +74,24 @@ public class LibraryService {
         return library;
     }
 
-    public void getReader() {
-
-    }
-
     public void newBook(Book book) {
         library.getBooks().put(book.getId(), book);
+    }
+
+    public List<Book> searchBooksWithTitle(String title) {
+        return library.getBooks().values().stream().filter(book -> book.getTitle().toLowerCase().trim().equals(title.toLowerCase().trim())).toList();
+    }
+
+    public List<Book> listAuthorBooks(Author author) {
+        return library.getBooks().values().stream().filter(book -> book.getAuthor().equals(author)).toList();
+    }
+
+    public List<Book> listCategoryBooks(BookCategory category) {
+        return library.getBooks().values().stream().filter(book -> book.getCategory().equals(category)).toList();
+    }
+
+    public void getReader() {
+
     }
 
     public void lendBook() {

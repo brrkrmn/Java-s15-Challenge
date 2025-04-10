@@ -50,6 +50,8 @@ public class LibrarianFlow extends Flow {
                             ? "Library does not have any readers"
                             : libraryService.getLibrary().getReaders().values()));
                     break;
+                case 7: searchBooks();
+
             }
         }
     }
@@ -73,11 +75,12 @@ public class LibrarianFlow extends Flow {
                 "Add new book",
                 "Edit a book",
                 "Delete a book",
-                "Show books",
-                "Show authors",
-                "Show readers"
+                "Show all books",
+                "Show all authors",
+                "Show all readers",
+                "Search books"
         );
-        return input.readIntRange(0,6);
+        return input.readIntRange(0,7);
     }
 
     public void addBook() {
@@ -216,6 +219,45 @@ public class LibrarianFlow extends Flow {
                     book.getAuthor().getBooks().remove(id);
                 case 2: return;
             }
+        }
+    }
+
+    public void searchBooks() {
+        printPrompt("Search books with: ");
+        printOptions(true, "title", "author", "category");
+        int option = input.readIntRange(0, 3);
+
+        switch (option) {
+            case 0: return;
+            case 1:
+                System.out.println(libraryService.searchBooksWithTitle(input.readLine("Search for a title")));
+                break;
+            case 2:
+                Author author;
+                while (true) {
+                    printPrompt("Search with author name");
+                    printGoBackPrompt();
+                    String authorName = input.readLine();
+
+                    if (authorName.equals("00")) {
+                        return;
+                    }
+
+                    author = libraryService.getLibrary().getAuthors().values().stream().filter(a -> a.getName().equalsIgnoreCase(authorName)).findFirst().orElse(null);
+
+                    if (author == null) {
+                        printPrompt("There is no author with this name.");
+                        continue;
+                    }
+                    System.out.println(libraryService.listAuthorBooks(author));
+                    break;
+                }
+                break;
+            case 3:
+                printPrompt("Search category");
+                printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
+                System.out.println(libraryService.listCategoryBooks(BookCategory.fromInt(input.readIntRange(1, 4))));
+                break;
         }
     }
 }
