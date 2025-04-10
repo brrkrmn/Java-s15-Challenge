@@ -63,14 +63,24 @@ public class AuthorFlow extends Flow {
     }
 
     public void submitBook() {
-        String title = input.readLine("What is the title of your book?");
-        String year = input.readLine("Year?");
+        String title;
 
-        printPrompt("Select a category");
+        while (true) {
+            title = input.readLine("What is the title of your book?");
+            if (isNullOrEmpty(title)) {
+                printPrompt("You must provide a title.");
+                continue;
+            }
+            break;
+        }
+
+        int year = input.readInt("Year?");
+
+        printPrompt("Category");
         printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
         BookCategory category = BookCategory.fromInt(input.readIntRange(1, 4));
 
-        libraryService.newBook(new Book(author, title, Double.parseDouble(year), category));
+        libraryService.newBook(new Book(author, title, year, category));
         printPrompt("Book submitted successfully, you can view it in your books.");
     }
 

@@ -12,13 +12,13 @@ public class Book {
     private String title;
     private final int price = 1;
     private BookStatus status;
-    private double year;
+    private int year;
     private LocalDate dateOfPurchase;
     private BookCategory category;
     private Reader reader;
     private Reader owner;
 
-    public Book(Author author, String title, double year, BookCategory category) {
+    public Book(Author author, String title, int year, BookCategory category) {
         this.id = UUID.randomUUID().toString();
         this.setStatus(BookStatus.AVAILABLE);
         this.setAuthor(author);
@@ -48,7 +48,7 @@ public class Book {
         return status;
     }
 
-    public double getYear() {
+    public int getYear() {
         return year;
     }
 
@@ -84,7 +84,7 @@ public class Book {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public void setYear(double year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
