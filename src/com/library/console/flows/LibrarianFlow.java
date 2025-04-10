@@ -2,7 +2,6 @@ package com.library.console.flows;
 
 import com.library.console.Flow;
 import com.library.models.Book;
-import com.library.models.Librarian;
 import com.library.service.LibrarianService;
 import com.library.service.LibraryService;
 import com.library.utils.Input;
@@ -28,7 +27,20 @@ public class LibrarianFlow extends Flow {
             int actionNo = showActions();
             switch (actionNo) {
                 case 0: return;
+                case 1: ;
+                case 2: ;
                 case 3: deleteBook();
+                case 4:
+                    printPrompt("----------Books----------\n" + libraryService.getLibrary().getBooks().values());
+                    break;
+                case 5:
+                    printPrompt("----------Authors----------\n" + libraryService.getLibrary().getAuthors().values());
+                    break;
+                case 6:
+                    printPrompt("----------Readers----------\n" + (libraryService.getLibrary().getReaders().isEmpty()
+                            ? "Library does not have any readers"
+                            : libraryService.getLibrary().getReaders().values()));
+                    break;
             }
         }
     }
@@ -52,10 +64,11 @@ public class LibrarianFlow extends Flow {
                 "Add new book",
                 "Update a book",
                 "Delete a book",
-                "Search a book",
-                "Search a category",
-                "Search an author");
-        return input.readIntRange(0, 6);
+                "Show books",
+                "Show authors",
+                "Show readers"
+        );
+        return input.readIntRange(0,6);
     }
 
     public void deleteBook() {

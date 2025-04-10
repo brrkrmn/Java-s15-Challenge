@@ -30,15 +30,15 @@ public class Author extends Person {
 
     @Override
     public String toString() {
-        return "Author {" +
-                "\n   id = " + getId() +
-                "\n   name = " + getName() +
-                "\n   books = (" + getBooks().size() + ") " +
-                    getBooks()
-                    .values()
-                    .stream()
-                    .map(Book::getTitle)
-                    .collect(java.util.stream.Collectors.joining(", ")) +
-                "\n}\n";
+        return "\n\n== AUTHOR ================================" +
+                "\n     id = " + getId() +
+                "\n     name = " + getName() +
+                "\n     books = (" + getBooks().size() + ") " +
+                            getBooks()
+                            .values()
+                            .stream()
+                            .map(Book::getTitle)
+                            .collect(java.util.stream.Collectors.joining(", ")) +
+                "\n============================================";
     }
 }

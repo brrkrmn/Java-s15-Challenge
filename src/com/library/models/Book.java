@@ -102,18 +102,18 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book\n {" +
-                "\n  id = " + id +
-                "\n  title = " + title +
-                "\n  price = " + price +
-                "\n  status = " + status +
-                "\n  year = " + year +
-                "\n  dateOfPurchase = " + dateOfPurchase +
-                "\n  category = " + category +
-                "\n  reader = " + reader +
-                "\n  owner = " + owner +
-                "\n  author = " + author.getName() +
-                "\n }\n";
+        return "\n\n== BOOK ================================" +
+                "\n     id = " + id +
+                "\n     title = " + title +
+                "\n     author = " + author.getName() +
+                "\n     year = " + year +
+                "\n     price = " + price +
+                "\n     status = " + status +
+                "\n     category = " + category +
+                "\n     reader = " + reader +
+                "\n     owner = " + owner +
+                "\n     dateOfPurchase = " + dateOfPurchase +
+                "\n=========================================";
     }
 
     @Override

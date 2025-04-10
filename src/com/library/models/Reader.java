@@ -24,6 +24,11 @@ public class Reader extends Person {
 
     @Override
     public String toString() {
-        return "Reader: " + getName();
+        return "\n\n== READER ================================" +
+                "\n     id = " + getId() +
+                "\n     name = " + getName() +
+                "\n     books = (" + getBooks().size() + ") " +
+                            getBooks().values().stream().map(Book::getTitle).collect(java.util.stream.Collectors.joining(", ")) +
+                "\n============================================";
     }
 }
