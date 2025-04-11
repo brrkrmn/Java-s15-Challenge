@@ -11,15 +11,13 @@ import com.library.utils.UIHelper;
 import java.util.List;
 
 public abstract class Flow implements DataHelper, UIHelper {
-    private final Input input = new Input();
-
     public abstract void run();
     public abstract int showActions();
 
     public String askName(String prompt) {
         printPrompt(prompt);
         while (true) {
-            String name = input.readLine();
+            String name = Input.readLine();
 
             if (isNullOrEmpty(name)) {
                 printPrompt("You must have a name, right? What is it?");
@@ -37,17 +35,17 @@ public abstract class Flow implements DataHelper, UIHelper {
     public void searchBooks(LibraryService libraryService) {
         printPrompt("Search books with: ");
         printOptions(true, "id", "title", "author", "category");
-        int option = input.readIntRange(0, 4);
+        int option = Input.readIntRange(0, 4);
 
         switch (option) {
             case 0: return;
             case 1:
-                String id = input.readLine("Search with book id: ");
+                String id = Input.readLine("Search with book id: ");
                 Book book = libraryService.getLibrary().getBooks().get(id);
                 System.out.println(book == null ? "There is no book found." : book);
                 break;
             case 2:
-                List<Book> booksFound = libraryService.searchBooksWithTitle(input.readLine("Search for a title"));
+                List<Book> booksFound = libraryService.searchBooksWithTitle(Input.readLine("Search for a title"));
                 System.out.println(booksFound.isEmpty() ? "No books found" : booksFound);
                 break;
             case 3:
@@ -55,7 +53,7 @@ public abstract class Flow implements DataHelper, UIHelper {
                 while (true) {
                     printPrompt("Search with author name: ");
                     printGoBackPrompt();
-                    String authorName = input.readLine();
+                    String authorName = Input.readLine();
 
                     if (authorName.equals("00")) {
                         return;
@@ -74,7 +72,7 @@ public abstract class Flow implements DataHelper, UIHelper {
             case 4:
                 printPrompt("Search category: ");
                 printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
-                System.out.println(libraryService.listCategoryBooks(BookCategory.fromInt(input.readIntRange(1, 4))));
+                System.out.println(libraryService.listCategoryBooks(BookCategory.fromInt(Input.readIntRange(1, 4))));
                 break;
         }
     }

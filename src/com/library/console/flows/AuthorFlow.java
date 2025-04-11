@@ -9,7 +9,6 @@ import com.library.service.LibraryService;
 import com.library.utils.Input;
 
 public class AuthorFlow extends Flow {
-    private final Input input = new Input();
     private final LibraryService libraryService;
     private Author author;
     private AuthorService authorService;
@@ -59,14 +58,14 @@ public class AuthorFlow extends Flow {
                 "Delete a book",
                 "View your books"
         );
-        return input.readIntRange(0, 3);
+        return Input.readIntRange(0, 3);
     }
 
     public void submitBook() {
         String title;
 
         while (true) {
-            title = input.readLine("What is the title of your book?");
+            title = Input.readLine("What is the title of your book?");
             if (isNullOrEmpty(title)) {
                 printPrompt("You must provide a title.");
                 continue;
@@ -74,11 +73,11 @@ public class AuthorFlow extends Flow {
             break;
         }
 
-        int year = input.readInt("Year?");
+        int year = Input.readInt("Year?");
 
         printPrompt("Category");
         printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
-        BookCategory category = BookCategory.fromInt(input.readIntRange(1, 4));
+        BookCategory category = BookCategory.fromInt(Input.readIntRange(1, 4));
 
         libraryService.newBook(new Book(author, title, year, category));
         printPrompt("Book submitted successfully, you can view it in your books.");
@@ -93,7 +92,7 @@ public class AuthorFlow extends Flow {
         while (true) {
             printPrompt("Please enter the id of the book you want to delete.");
             printGoBackPrompt();
-            String id = input.readLine();
+            String id = Input.readLine();
             
             if (id.equals("00")) {
                 break;

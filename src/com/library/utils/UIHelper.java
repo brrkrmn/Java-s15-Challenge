@@ -8,12 +8,8 @@ public interface UIHelper {
         System.out.println("------------------");
     }
 
-    default void printNextLine() {
-        System.out.println("\n");
-    }
-
     default void printPrompt(String prompt) {
-        printNextLine();
+        System.out.println("\n");
         System.out.println(prompt);
     }
 

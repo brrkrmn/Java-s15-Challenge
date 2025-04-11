@@ -12,28 +12,4 @@ public class LibrarianService {
     public Librarian getLibrarian() {
         return librarian;
     }
-
-    public void searchBook() {
-
-    }
-
-    public void verifyMember() {
-
-    }
-
-    public void issueBook() {
-
-    }
-
-    public void calculateFine() {
-
-    }
-
-    public void createBill() {
-
-    }
-
-    public void returnBook() {
-
-    }
 }

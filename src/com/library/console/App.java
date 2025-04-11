@@ -8,7 +8,6 @@ import com.library.utils.Input;
 import com.library.utils.UIHelper;
 
 public class App implements UIHelper {
-    private final Input input = new Input();
     private final LibraryService libraryService = new LibraryService();
     private final AuthorFlow authorFlow = new AuthorFlow(libraryService);
     private final ReaderFlow readerFlow = new ReaderFlow(libraryService);
@@ -35,6 +34,6 @@ public class App implements UIHelper {
     public Role getUserRole() {
         printPrompt("Who are you?");
         printOptions(false, "Reader", "Author", "Librarian");
-        return Role.fromInt(input.readIntRange(1, 3));
+        return Role.fromInt(Input.readIntRange(1, 3));
     }
 }

@@ -12,7 +12,6 @@ import com.library.utils.Input;
 public class LibrarianFlow extends Flow {
     private final LibraryService libraryService;
     private final LibrarianService librarianService;
-    private final Input input = new Input();
 
     public LibrarianFlow(LibraryService libraryService) {
         this.libraryService = libraryService;
@@ -58,7 +57,7 @@ public class LibrarianFlow extends Flow {
 
     public boolean verifyLibrarian() {
         while (true) {
-            String password = input.readLine("Enter the password to log in as librarian");
+            String password = Input.readLine("Enter the password to log in as librarian");
 
             if (isNullOrEmpty(password)) {
                 printPrompt("Password is required.");
@@ -80,7 +79,7 @@ public class LibrarianFlow extends Flow {
                 "Show all readers",
                 "Search books"
         );
-        return input.readIntRange(0,7);
+        return Input.readIntRange(0,7);
     }
 
     public void addBook() {
@@ -88,7 +87,7 @@ public class LibrarianFlow extends Flow {
         Author author;
 
         while (true) {
-            title = input.readLine("What is the title of the book?");
+            title = Input.readLine("What is the title of the book?");
             if (isNullOrEmpty(title)) {
                 printPrompt("Title cannot be empty.");
                 continue;
@@ -97,7 +96,7 @@ public class LibrarianFlow extends Flow {
         }
 
         while (true) {
-            String authorId = input.readLine("Who is the id of the author?");
+            String authorId = Input.readLine("Who is the id of the author?");
             if (isNullOrEmpty(authorId)) {
                 printPrompt("Author id is required.");
                 continue;
@@ -112,11 +111,11 @@ public class LibrarianFlow extends Flow {
             break;
         }
 
-        int year = input.readInt("What is the year of the book?");
+        int year = Input.readInt("What is the year of the book?");
 
         printPrompt("Select the category of the book");
         printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
-        BookCategory category = BookCategory.fromInt(input.readIntRange(1, 4));
+        BookCategory category = BookCategory.fromInt(Input.readIntRange(1, 4));
 
         libraryService.newBook(new Book(author, title, year, category));
     }
@@ -128,7 +127,7 @@ public class LibrarianFlow extends Flow {
         while (true) {
             printPrompt("Enter the id of the book you want to edit");
             printGoBackPrompt();
-            String id = input.readLine();
+            String id = Input.readLine();
 
             if (id.equals("00")) {
                 break;
@@ -150,17 +149,17 @@ public class LibrarianFlow extends Flow {
             while (true) {
                 printPrompt("Which field do you want to change?");
                 printOptions(true, "Title", "Author", "Year", "Price", "Category");
-                int option = input.readIntRange(0, 5);
+                int option = Input.readIntRange(0, 5);
 
                 switch (option) {
                     case 0: return;
                     case 1:
-                        bookService.changeTitle(input.readLine("What is the new title?"));
+                        bookService.changeTitle(Input.readLine("What is the new title?"));
                         break;
                     case 2:
                         Author author;
                         while (true) {
-                            String authorId = input.readLine("What is the new author's id?");
+                            String authorId = Input.readLine("What is the new author's id?");
                             author = libraryService.getLibrary().getAuthors().get(authorId);
 
                             if (author == null) {
@@ -170,18 +169,18 @@ public class LibrarianFlow extends Flow {
                             bookService.changeAuthor(author);
                         }
                     case 3:
-                        bookService.changeYear(input.readInt("What is the new year?"));
+                        bookService.changeYear(Input.readInt("What is the new year?"));
                         break;
                     case 4:
                         while (true) {
-                            int price = input.readInt("What is the new price?");
+                            int price = Input.readInt("What is the new price?");
                             if (bookService.changePrice(price)) break;
                         }
                         break;
                     case 5:
                         printPrompt("What is the new category");
                         printOptions(false, BookCategory.JOURNAL.getCategory(), BookCategory.STUDY_BOOK.getCategory(), BookCategory.MAGAZINE.getCategory(), BookCategory.FANTASY_NOVEL.getCategory());
-                        bookService.changeCategory(BookCategory.fromInt(input.readIntRange(1, 4)));
+                        bookService.changeCategory(BookCategory.fromInt(Input.readIntRange(1, 4)));
                 }
             }
         }
@@ -191,7 +190,7 @@ public class LibrarianFlow extends Flow {
         while (true) {
             printPrompt("Enter the id of the book you want to delete.");
             printGoBackPrompt();
-            String id = input.readLine();
+            String id = Input.readLine();
 
             if (id.equals("00")) {
                 break;
@@ -212,12 +211,13 @@ public class LibrarianFlow extends Flow {
             printPrompt("Here's the book details: \n" + book.toString());
             printPrompt("Continue with deletion?");
             printOptions(false, "Yes, delete", "Cancel");
-            int option = input.readIntRange(1, 2);
+            int option = Input.readIntRange(1, 2);
 
             switch (option) {
                 case 1:
                     libraryService.getLibrary().getBooks().remove(id);
                     book.getAuthor().getBooks().remove(id);
+                    book.getReader().getBorrowedBooks().remove(id);
                 case 2: return;
             }
         }

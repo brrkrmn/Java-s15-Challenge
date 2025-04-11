@@ -11,7 +11,6 @@ import com.library.utils.Input;
 
 public class ReaderFlow extends Flow {
     private final LibraryService libraryService;
-    private final Input input = new Input();
     private Reader reader;
     private MemberRecordService memberRecordService;
     private ReaderService readerService;
@@ -41,7 +40,7 @@ public class ReaderFlow extends Flow {
                 case 1:
                     printPrompt("Enter the id of the book you want to borrow");
                     printGoBackPrompt();
-                    String id = input.readLine();
+                    String id = Input.readLine();
 
                     if (id.equals("00")) {
                         break;
@@ -58,7 +57,7 @@ public class ReaderFlow extends Flow {
                     readerService.showBorrowedBooks();
                     printPrompt("Enter the id of the book you want to return");
                     printGoBackPrompt();
-                    String returnId = input.readLine();
+                    String returnId = Input.readLine();
 
                     if (returnId.equals("00")) {
                         break;
@@ -74,7 +73,7 @@ public class ReaderFlow extends Flow {
                 case 3:
                     printPrompt("Enter the id of the book you want to purchase");
                     printGoBackPrompt();
-                    String purchaseId = input.readLine();
+                    String purchaseId = Input.readLine();
 
                     if (purchaseId.equals("00")) {
                         break;
@@ -120,33 +119,37 @@ public class ReaderFlow extends Flow {
                 "Search books",
                 "View member data"
         );
-        return input.readIntRange(0, 9);
+        return Input.readIntRange(0, 9);
     }
 
     public void initializeReader() {
-        String name = input.readLine("Welcome, reader. What is your name?");
+        while (true) {
+            String name = Input.readLine("Welcome, reader. What is your name?");
 
-        if (isNullOrEmpty(name)) {
-            printPrompt("You must have a name :)");
-            return;
+            if (isNullOrEmpty(name)) {
+                printPrompt("You must have a name :)");
+                continue;
+            }
+
+            if (isNumeric(name)) {
+                printPrompt("We don't believe your name has a number in it...");
+                continue;
+            }
+
+            Reader existingReader = libraryService.getLibrary().getReaders().values().stream()
+                    .filter(r -> r.getName().equalsIgnoreCase(name))
+                    .findFirst()
+                    .orElse(null);
+
+            if (existingReader == null) {
+                this.reader = new Reader(name);
+                libraryService.getLibrary().getReaders().put(reader.getId(), reader);
+            } else {
+                this.reader = existingReader;
+            }
+            break;
         }
 
-        if (isNumeric(name)) {
-            printPrompt("We don't believe your name has a number in it...");
-            return;
-        }
-
-        Reader existingReader = libraryService.getLibrary().getReaders().values().stream()
-                .filter(r -> r.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
-
-        if (existingReader == null) {
-            this.reader = new Reader(name);
-            libraryService.getLibrary().getReaders().put(reader.getId(), reader);
-        } else {
-            this.reader = existingReader;
-        }
     }
 
     public void createMember() {
@@ -156,14 +159,14 @@ public class ReaderFlow extends Flow {
         printOptions(false,
                 MemberType.STUDENT.getMemberType() + " (15$) - Book Limit: 5",
                 MemberType.FACULTY.getMemberType() + " (30$) - Book Limit: 20");
-        MemberType memberType = MemberType.fromInt(input.readIntRange(1, 2));
+        MemberType memberType = MemberType.fromInt(Input.readIntRange(1, 2));
 
-        String address = input.readLine("Enter your address");
-        String phone = input.readLine("Enter your phone number");
+        String address = Input.readLine("Enter your address");
+        String phone = Input.readLine("Enter your phone number");
 
         String accessKey;
         while (true) {
-             accessKey = input.readLine("Create an access key");
+             accessKey = Input.readLine("Create an access key");
              if (accessKey.length() < 3 || accessKey.length() > 10) {
                  printPrompt("Access key must be minimum 3 and maximum 10 characters");
                  continue;
@@ -179,7 +182,7 @@ public class ReaderFlow extends Flow {
     }
 
     public boolean verifyMember() {
-        String accessKey = input.readLine("You have to log in with your member access key to continue.");
+        String accessKey = Input.readLine("You have to log in with your member access key to continue.");
         boolean isVerified = accessKey.equals(reader.getMemberRecord().getAccessKey());
         System.out.println(isVerified
                 ? "Welcome back, " + reader.getName()
