@@ -1,6 +1,10 @@
 package com.library.service;
 
 import com.library.models.*;
+import com.library.models.book.Book;
+import com.library.models.book.BookCategory;
+import com.library.models.person.Author;
+import com.library.models.person.Librarian;
 
 import java.util.HashMap;
 import java.util.List;
@@ -90,20 +94,16 @@ public class LibraryService {
         return library.getBooks().values().stream().filter(book -> book.getCategory().equals(category)).toList();
     }
 
-    public void getReader() {
-
+    public Book getBook(String id) {
+        return library.getBooks().get(id);
     }
 
-    public void lendBook() {
-
+    public List<Book> getBooks() {
+        return library.getBooks().values().stream().toList();
     }
 
-    public void takeBackBook() {
-
-    }
-
-    public void showBook() {
-
+    public List<Author> getAuthors() {
+        return library.getAuthors().values().stream().toList();
     }
 }
 

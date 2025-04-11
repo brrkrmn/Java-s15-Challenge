@@ -1,4 +1,4 @@
-package com.library.models;
+package com.library.models.person;
 
 import java.util.Objects;
 import java.util.UUID;

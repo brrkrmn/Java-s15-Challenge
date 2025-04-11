@@ -1,4 +1,4 @@
-package com.library.models;
+package com.library.models.person;
 
 public class Librarian extends Person {
     private String password;

@@ -1,5 +1,7 @@
 package com.library.models;
 
+import com.library.models.person.Reader;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -25,6 +27,7 @@ public class MemberRecord {
         this.setMemberType(memberType);
         this.setMaxBookLimit(memberType == MemberType.STUDENT ? 5 : 20);
         this.setBudget(memberType == MemberType.STUDENT ? 15 : 30);
+        reader.setMemberRecord(this);
     }
 
     public String getId() {

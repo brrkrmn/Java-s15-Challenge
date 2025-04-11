@@ -1,4 +1,6 @@
-package com.library.models;
+package com.library.models.person;
+
+import com.library.models.book.Book;
 
 import java.util.HashMap;
 import java.util.Map;

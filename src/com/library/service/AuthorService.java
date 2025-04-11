@@ -1,7 +1,6 @@
 package com.library.service;
 
-import com.library.models.Author;
-import com.library.models.Book;
+import com.library.models.person.Author;
 
 import java.util.Map;
 

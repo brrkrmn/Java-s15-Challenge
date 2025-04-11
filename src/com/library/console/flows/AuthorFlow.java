@@ -1,9 +1,9 @@
 package com.library.console.flows;
 
 import com.library.console.Flow;
-import com.library.models.Author;
-import com.library.models.Book;
-import com.library.models.BookCategory;
+import com.library.models.person.Author;
+import com.library.models.book.Book;
+import com.library.models.book.BookCategory;
 import com.library.service.AuthorService;
 import com.library.service.LibraryService;
 import com.library.utils.Input;

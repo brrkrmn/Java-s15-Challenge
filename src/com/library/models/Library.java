@@ -1,5 +1,10 @@
 package com.library.models;
 
+import com.library.models.book.Book;
+import com.library.models.person.Author;
+import com.library.models.person.Librarian;
+import com.library.models.person.Reader;
+
 import java.util.HashMap;
 import java.util.Map;
 

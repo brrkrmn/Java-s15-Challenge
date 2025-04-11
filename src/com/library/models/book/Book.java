@@ -1,6 +1,7 @@
-package com.library.models;
+package com.library.models.book;
 
-import com.library.service.AuthorService;
+import com.library.models.person.Author;
+import com.library.models.person.Reader;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -114,8 +115,8 @@ public class Book {
                 "\n     price = " + price +
                 "\n     status = " + status +
                 "\n     category = " + category +
-                "\n     reader = " + reader +
-                "\n     owner = " + owner +
+                "\n     reader = " + (reader == null ? "null" : reader.getName()) +
+                "\n     owner = " + (owner == null ? "null" : owner.getName()) +
                 "\n     dateOfPurchase = " + dateOfPurchase +
                 "\n=========================================";
     }

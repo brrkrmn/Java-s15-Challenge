@@ -1,5 +1,9 @@
-package com.library.models;
+package com.library.models.person;
 
+import com.library.models.MemberRecord;
+import com.library.models.book.Book;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class Reader extends Person {
@@ -9,6 +13,8 @@ public class Reader extends Person {
 
     public Reader(String name) {
         super(name);
+        borrowedBooks = new HashMap<>();
+        purchasedBooks = new HashMap<>();
     }
 
     public Map<String, Book> getBorrowedBooks() {

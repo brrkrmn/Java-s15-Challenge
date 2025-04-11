@@ -1,6 +1,6 @@
 package com.library.service;
 
-import com.library.models.Librarian;
+import com.library.models.person.Librarian;
 
 public class LibrarianService {
     private Librarian librarian;

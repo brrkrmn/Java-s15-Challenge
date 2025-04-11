@@ -1,6 +1,8 @@
 package com.library.service;
 
-import com.library.models.*;
+import com.library.models.book.Book;
+import com.library.models.book.BookCategory;
+import com.library.models.person.Author;
 
 public class BookService {
     private Book book;
@@ -39,13 +41,5 @@ public class BookService {
 
     public void changeCategory(BookCategory category) {
         book.setCategory(category);
-    }
-
-    public void changeOwner(Reader owner) {
-        book.setOwner(owner);
-    }
-
-    public void updateStatus(BookStatus status) {
-        book.setStatus(status);
     }
 }

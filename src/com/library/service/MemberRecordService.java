@@ -3,7 +3,7 @@ package com.library.service;
 import com.library.models.MemberRecord;
 
 public class MemberRecordService {
-    private MemberRecord memberRecord;
+    private final MemberRecord memberRecord;
 
     public MemberRecordService(MemberRecord memberRecord) {
         this.memberRecord = memberRecord;
@@ -28,36 +28,30 @@ public class MemberRecordService {
         );
     }
 
-    public void showMemberCard() {
-        System.out.println("---------------------");
-        System.out.println("     Member Card     ");
-        System.out.println("---------------------");
-        System.out.println("     name: " + memberRecord.getName());
-        System.out.println("     member record type: " + memberRecord.getMemberType());
-        System.out.println("     joined at: " + memberRecord.getDateOfMembership());
-        System.out.println("     book limit: " + memberRecord.getMaxBookLimit());
-        System.out.println("     books issued: " + memberRecord.getIssuedBooks());
-        System.out.println("---------------------");
+    public void viewMemberCard() {
+        System.out.println(
+                  "\n--------------------------------"
+                + "\n          Member Card           "
+                + "\n--------------------------------"
+                + "\n       Name: " + memberRecord.getName()
+                + "\n       Member Type: " + memberRecord.getMemberType()
+                + "\n       Book Limit: " + memberRecord.getMaxBookLimit()
+                + "\n       Budget: " + memberRecord.getBudget() + "$"
+                + "\n       Books Issued: " + memberRecord.getIssuedBooks()
+                + "\n\n       Address: " + memberRecord.getAddress()
+                + "\n       Phone: " + memberRecord.getPhone()
+                + "\n       Access Key: " + memberRecord.getAccessKey()
+                + "\n       Date Created: " + memberRecord.getDateOfMembership()
+                + "\n--------------------------------"
+        );
     }
 
-    public void showPersonalDetails(String accessKey) {
-        if (!validateMember(accessKey)) {
-            System.out.println("You cannot view this member's details.");
-            return;
-        }
-
-        System.out.println("---------------------");
-        System.out.println("    Member Details    ");
-        System.out.println("---------------------");
-        System.out.println("     id: " + memberRecord.getId());
-        System.out.println("     address: " + memberRecord.getAddress());
-        System.out.println("     phone: " + memberRecord.getPhone());
-        System.out.println("     access key: " + memberRecord.getAccessKey());
-        System.out.println("---------------------");
+    public void payBill(int price) {
+        memberRecord.setBudget(memberRecord.getBudget() - price);
     }
 
-    public boolean validateMember(String accessKey) {
-        return accessKey.equals(memberRecord.getAccessKey());
+    public void refund(int price) {
+        memberRecord.setBudget(memberRecord.getBudget() + price);
     }
 
     public void increaseBooksIssued() {
@@ -68,7 +62,12 @@ public class MemberRecordService {
         memberRecord.setIssuedBooks(memberRecord.getIssuedBooks() - 1);
     }
 
-    public void payBill() {
+    public boolean canBorrowBook(int price) {
+        return (memberRecord.getIssuedBooks() < memberRecord.getMaxBookLimit())
+                && (memberRecord.getBudget() >= price);
+    }
 
+    public boolean canPurchaseBook(int price) {
+        return memberRecord.getBudget() >= price;
     }
 }
